@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
+using ToDoList.Mongo;
 
 namespace ToDoList
 {
@@ -30,6 +32,7 @@ namespace ToDoList
         {
             // Add framework services.
             services.AddMvc();
+            services.AddMongo(Configuration.GetSection("Mongo"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
