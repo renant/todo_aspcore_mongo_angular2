@@ -15,6 +15,7 @@ import { ToDoListComponent } from './components/todolist/todolist.component';
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
+        ToDoListComponent,
         HomeComponent
     ],
     imports: [
