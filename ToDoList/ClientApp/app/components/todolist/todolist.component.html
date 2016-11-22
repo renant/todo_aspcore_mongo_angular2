@@ -1,6 +1,19 @@
-<div class='main-nav'>
-    <div>
-        Teste
-        <p>teste</p>
-    </div>
-</div>
+<h1>Weather forecast</h1>
+<p>This component demonstrates fetching data from the server.</p>
+<p *ngIf="!toDoList"><em>Loading...</em></p>
+<table class='table' *ngIf="toDoList">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Descricao</th>
+            <th>Done</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let todo of toDoList">
+            <td>{{ todo.id }}</td>
+            <td>{{ todo.description }}</td>
+            <td>{{ todo.done }}</td>
+        </tr>
+    </tbody>
+</table>
