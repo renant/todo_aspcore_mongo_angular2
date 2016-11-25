@@ -11,5 +11,6 @@
     "types": [ "node" ]
   },
   "exclude": [ "bin", "node_modules" ],
-  "atom": { "rewriteTsconfig": false }
+  "atom": { "rewriteTsconfig": false },
+  "compileOnSave": true
 }

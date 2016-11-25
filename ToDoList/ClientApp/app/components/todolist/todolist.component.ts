@@ -7,13 +7,16 @@ import { Http } from '@angular/http';
     //styles: [require('./navmenu.component.css')]
 })
 export class ToDoListComponent {
+    private http: Http;
     public toDoList: Array<any>[];
 
 
     
 
     constructor(http: Http) {
-        http.get('/api/ToDo/ToDoList').subscribe(result => {
+        this.http = http;
+
+        this.http.get('/api/ToDo/ToDoList').subscribe(result => {
             this.toDoList = result.json();
         });
     }
