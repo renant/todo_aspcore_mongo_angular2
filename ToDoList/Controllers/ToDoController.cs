@@ -22,12 +22,14 @@ namespace ToDoList.Controllers
                 new ToDo()
                 {
                     Id = new ObjectId(),
-                    Description = "teste"
+                    Description = "teste",
+                    Date = DateTime.Now,
                 },
                 new ToDo()
                 {
                     Id = new ObjectId(),
-                    Description = "teste2"
+                    Description = "teste2",
+                    Date = DateTime.Now,
                 }
             };
 

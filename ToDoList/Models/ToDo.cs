@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 
 namespace ToDoList.Models
 {
@@ -7,5 +8,6 @@ namespace ToDoList.Models
         public ObjectId Id { get; set; }
         public string Description { get; set; }
         public bool Done { get; set; }
+        public DateTime Date { get; set; }
     }
 }

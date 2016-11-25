@@ -9,6 +9,9 @@ import { Http } from '@angular/http';
 export class ToDoListComponent {
     public toDoList: Array<any>[];
 
+
+    
+
     constructor(http: Http) {
         http.get('/api/ToDo/ToDoList').subscribe(result => {
             this.toDoList = result.json();
