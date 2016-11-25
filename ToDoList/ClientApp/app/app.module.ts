@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { ToDoListComponent } from './components/todolist/todolist.component';
+import { ToDoFormComponent } from './components/todoform/todoform.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -18,6 +19,7 @@ import { ToDoListComponent } from './components/todolist/todolist.component';
         CounterComponent,
         FetchDataComponent,
         ToDoListComponent,
+        ToDoFormComponent,
         HomeComponent
     ],
     imports: [
@@ -29,7 +31,8 @@ import { ToDoListComponent } from './components/todolist/todolist.component';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            { path: 'todolist', component: ToDoListComponent},
+            { path: 'todolist', component: ToDoListComponent },
+            { path: 'todoform', component: ToDoFormComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
