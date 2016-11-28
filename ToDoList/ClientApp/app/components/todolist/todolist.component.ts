@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'todolist',
@@ -15,8 +19,24 @@ export class ToDoListComponent {
 
         this.http.get('/api/ToDo/ToDoList').subscribe(result => {
             this.toDoList = result.json();
-            console.log(result.json());
+            console.log(this.toDoList);
         });
     }
-}
 
+    public changeStatus(todo) {
+
+        todo.done = !todo.done;
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let body = JSON.stringify(todo);
+
+
+        this.http.post('/api/ToDo/ChangeStatus', body, options)
+            .subscribe(result => {
+                
+            });
+    }
+
+
+}

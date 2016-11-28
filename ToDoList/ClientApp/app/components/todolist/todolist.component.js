@@ -10,15 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
 var ToDoListComponent = (function () {
     function ToDoListComponent(http) {
         var _this = this;
         this.http = http;
         this.http.get('/api/ToDo/ToDoList').subscribe(function (result) {
             _this.toDoList = result.json();
-            console.log(result.json());
+            console.log(_this.toDoList);
         });
     }
+    ToDoListComponent.prototype.changeStatus = function (todo) {
+        todo.done = !todo.done;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        var body = JSON.stringify(todo);
+        this.http.post('/api/ToDo/ChangeStatus', body, options)
+            .subscribe(function (result) {
+        });
+    };
     ToDoListComponent = __decorate([
         core_1.Component({
             selector: 'todolist',
