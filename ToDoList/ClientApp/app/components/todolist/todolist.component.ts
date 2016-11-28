@@ -10,14 +10,12 @@ export class ToDoListComponent {
     private http: Http;
     public toDoList: Array<any>[];
 
-
-    
-
     constructor(http: Http) {
         this.http = http;
 
         this.http.get('/api/ToDo/ToDoList').subscribe(result => {
             this.toDoList = result.json();
+            console.log(result.json());
         });
     }
 }

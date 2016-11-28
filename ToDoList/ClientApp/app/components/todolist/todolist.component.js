@@ -16,6 +16,7 @@ var ToDoListComponent = (function () {
         this.http = http;
         this.http.get('/api/ToDo/ToDoList').subscribe(function (result) {
             _this.toDoList = result.json();
+            console.log(result.json());
         });
     }
     ToDoListComponent = __decorate([

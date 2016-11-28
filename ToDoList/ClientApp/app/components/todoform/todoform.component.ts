@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
     selector: 'todoform',
@@ -8,14 +12,38 @@ import { Router } from '@angular/router';
     //styles: [require('./navmenu.component.css')]
 })
 export class ToDoFormComponent {
+    private http: Http;
     private router: Router;
+    private todo: Object = { description: "", date: Date.now(), done: false }
 
-    constructor(router : Router) {
+
+    constructor(router: Router, http: Http) {
+        console.log("teste");
+        this.http = http;
         this.router = router;
     }
 
     public submit() {
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let body = JSON.stringify(this.todo);
+
+
+        this.http.post('/api/ToDo/Create', body, options)
+            .toPromise()
+            .then(() => this.sucess())
+            .catch(() => this.error());
+
+    }
+
+    private sucess() {
         this.router.navigate(["/todolist"]);
+        alert("sucess");
+    }
+
+    private error() {
+        alert("error");
     }
 }
 

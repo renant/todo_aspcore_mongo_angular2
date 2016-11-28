@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using ToDoList.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,27 +14,26 @@ namespace ToDoList.Controllers
     [Route("api/[controller]")]
     public class ToDoController : Controller
     {
+
+        private IMongoCollection<ToDo> todo;
+
+        public ToDoController(MongoClient client)
+        {
+            var database = client.GetDatabase("mongodbdotnetcore");
+            todo = database.GetCollection<ToDo>(nameof(todo));
+        }
+
         // GET: api/values
         [HttpGet("[action]")]
-        public IEnumerable<ToDo> TodoList()
+        public async Task<IList<ToDo>> TodoList(DateTime? date)
         {
-            var todolist = new List<ToDo>
-            {
-                new ToDo()
-                {
-                    Id = new ObjectId(),
-                    Description = "teste",
-                    Date = DateTime.Now,
-                },
-                new ToDo()
-                {
-                    Id = new ObjectId(),
-                    Description = "teste2",
-                    Date = DateTime.Now,
-                }
-            };
+            if(!date.HasValue)
+                date = DateTime.Now;
 
-            return todolist;
+            var todolist = await todo.FindAsync(FilterDefinition<ToDo>.Empty);
+
+
+            return todolist.ToList();
         }
 
         // GET api/values/5
@@ -44,9 +44,11 @@ namespace ToDoList.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("[action]")]
+        public async Task Create([FromBody]ToDo newTodo)
         {
+
+            await todo.InsertOneAsync(newTodo);
         }
 
         // PUT api/values/5
