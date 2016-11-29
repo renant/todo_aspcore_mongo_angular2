@@ -19,7 +19,6 @@ export class ToDoListComponent {
 
         this.http.get('/api/ToDo/ToDoList').subscribe(result => {
             this.toDoList = result.json();
-            console.log(this.toDoList);
         });
     }
 

@@ -16,7 +16,6 @@ require('rxjs/add/operator/catch');
 var ToDoFormComponent = (function () {
     function ToDoFormComponent(router, http) {
         this.todo = { description: "", date: Date.now(), done: false };
-        console.log("teste");
         this.http = http;
         this.router = router;
     }
@@ -26,9 +25,10 @@ var ToDoFormComponent = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         var body = JSON.stringify(this.todo);
         this.http.post('/api/ToDo/Create', body, options)
-            .toPromise()
-            .then(function () { return _this.sucess(); })
-            .catch(function () { return _this.error(); });
+            .subscribe(function (result) {
+            _this.router.navigate(["/todolist"]);
+            alert("sucess");
+        });
     };
     ToDoFormComponent.prototype.sucess = function () {
         this.router.navigate(["/todolist"]);

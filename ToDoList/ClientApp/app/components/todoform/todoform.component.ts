@@ -18,7 +18,6 @@ export class ToDoFormComponent {
 
 
     constructor(router: Router, http: Http) {
-        console.log("teste");
         this.http = http;
         this.router = router;
     }
@@ -31,9 +30,10 @@ export class ToDoFormComponent {
 
 
         this.http.post('/api/ToDo/Create', body, options)
-            .toPromise()
-            .then(() => this.sucess())
-            .catch(() => this.error());
+            .subscribe(result => {
+                this.router.navigate(["/todolist"]);
+                alert("sucess");
+            });
 
     }
 
