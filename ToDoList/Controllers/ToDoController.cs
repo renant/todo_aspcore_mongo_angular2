@@ -32,18 +32,21 @@ namespace ToDoList.Controllers
             if(!date.HasValue)
                 date = DateTime.Now;
 
-            var todolist = await todo.FindAsync(FilterDefinition<ToDo>.Empty);
+            //var todolist = await todo.FindAsync(FilterDefinition<ToDo>.Empty);
 
-            //var todolist = await todo.FindAsync(Builders<ToDo>.Filter.Eq(x => x.Date,date));
+            var query2 = Builders<ToDo>.Filter.And(
+            Builders<ToDo>.Filter.Eq("Date", date.Value.Date.ToUniversalTime()),
+            Builders<ToDo>.Filter.Eq("Done", false)
+            )
+            ;
+
+            var query = Builders<ToDo>.Filter.Eq("Date", date.Value.Date.ToUniversalTime());
+            
+
+
+            var todolist = await todo.FindAsync(query2);
 
             return todolist.ToList();
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/values
@@ -62,9 +65,10 @@ namespace ToDoList.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("[action]/{id}")]
+        public async Task Delete(string id)
         {
+            await todo.DeleteOneAsync(x => x.Id == id);
         }
     }
 }
