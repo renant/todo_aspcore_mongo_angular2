@@ -16,10 +16,25 @@ var ToDoListComponent = (function () {
     function ToDoListComponent(http) {
         var _this = this;
         this.http = http;
-        this.http.get('/api/ToDo/ToDoList').subscribe(function (result) {
+        this.datefilter = this.formatDate(Date.now());
+        this.http.get('/api/ToDo/ToDoList/?date=' + this.datefilter).subscribe(function (result) {
             _this.toDoList = result.json();
         });
     }
+    ToDoListComponent.prototype.list = function () {
+        var _this = this;
+        this.http.get('/api/ToDo/ToDoList/?date=' + this.datefilter).subscribe(function (result) {
+            _this.toDoList = result.json();
+        });
+    };
+    ToDoListComponent.prototype.remove = function (id) {
+        var _this = this;
+        this.http.delete('/api/ToDo/Delete/' + id).subscribe(function (result) {
+            _this.http.get('/api/ToDo/ToDoList/?date=' + _this.datefilter).subscribe(function (result) {
+                _this.toDoList = result.json();
+            });
+        });
+    };
     ToDoListComponent.prototype.changeStatus = function (todo) {
         todo.done = !todo.done;
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
@@ -28,6 +43,15 @@ var ToDoListComponent = (function () {
         this.http.post('/api/ToDo/ChangeStatus', body, options)
             .subscribe(function (result) {
         });
+    };
+    ToDoListComponent.prototype.formatDate = function (date) {
+        var d = new Date(date);
+        var month = "" + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+        return [year, month, day].join('-');
     };
     ToDoListComponent = __decorate([
         core_1.Component({

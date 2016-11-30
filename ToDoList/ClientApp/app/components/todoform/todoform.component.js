@@ -15,7 +15,7 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var ToDoFormComponent = (function () {
     function ToDoFormComponent(router, http) {
-        this.todo = { description: "", date: Date.now(), done: false };
+        this.todo = { description: "", date: this.formatDate(Date.now()), done: false };
         this.http = http;
         this.router = router;
     }
@@ -36,6 +36,15 @@ var ToDoFormComponent = (function () {
     };
     ToDoFormComponent.prototype.error = function () {
         alert("error");
+    };
+    ToDoFormComponent.prototype.formatDate = function (date) {
+        var d = new Date(date);
+        var month = "" + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+        return [year, month, day].join('-');
     };
     ToDoFormComponent = __decorate([
         core_1.Component({

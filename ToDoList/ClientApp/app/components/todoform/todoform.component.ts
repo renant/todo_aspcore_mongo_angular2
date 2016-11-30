@@ -14,10 +14,11 @@ import { Observable } from 'rxjs/Rx';
 export class ToDoFormComponent {
     private http: Http;
     private router: Router;
-    private todo: Object = { description: "", date: Date.now(), done: false }
+    public todo: Object = { description: "", date: this.formatDate(Date.now()), done: false }
 
 
     constructor(router: Router, http: Http) {
+        
         this.http = http;
         this.router = router;
     }
@@ -44,6 +45,18 @@ export class ToDoFormComponent {
 
     private error() {
         alert("error");
+    }
+
+    private formatDate(date) {
+        const d = new Date(date);
+        var month = "" + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
     }
 }
 

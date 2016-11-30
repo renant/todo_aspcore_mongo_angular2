@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using ToDoList.Models;
 
@@ -32,19 +28,9 @@ namespace ToDoList.Controllers
             if(!date.HasValue)
                 date = DateTime.Now;
 
-            //var todolist = await todo.FindAsync(FilterDefinition<ToDo>.Empty);
-
-            var query2 = Builders<ToDo>.Filter.And(
-            Builders<ToDo>.Filter.Eq("Date", date.Value.Date.ToUniversalTime()),
-            Builders<ToDo>.Filter.Eq("Done", false)
-            )
-            ;
-
             var query = Builders<ToDo>.Filter.Eq("Date", date.Value.Date.ToUniversalTime());
             
-
-
-            var todolist = await todo.FindAsync(query2);
+            var todolist = await todo.FindAsync(query);
 
             return todolist.ToList();
         }
