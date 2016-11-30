@@ -23,7 +23,7 @@ namespace ToDoList
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = builder.Build(); 
         }
 
         public IConfigurationRoot Configuration { get; }
