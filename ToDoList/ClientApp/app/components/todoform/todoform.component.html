@@ -1,19 +1,20 @@
 ﻿<h1>To Do New Item</h1>
 
 
-<form>
+<form (ngSubmit)="submit()" #heroForm="ngForm" >
     <div class="row">
         <div class="col-lg-3">
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <input type="text" [(ngModel)]="todo.description" class="form-control" name="todo.description">
+                <input type="text" [(ngModel)]="todo.description" class="form-control" name="todo.description" required>
             </div>
             <div class="form-group">
                 <label for="pwd">Data:</label>
-                <input type="date" [(ngModel)]="todo.date" class="form-control" name="todo.date">
+                <input type="date" [(ngModel)]="todo.date" class="form-control" name="todo.date" required>
             </div>
-            <button type="submit" (click)="submit()" class="btn btn-default">Cadastrar</button>
+            <button type="submit" [disabled]="!heroForm.form.valid" class="btn btn-default">Cadastrar</button>
             <button class="btn btn-default" [routerLink]="['/todolist']">Voltar</button>
         </div>
     </div>
 </form>
+
